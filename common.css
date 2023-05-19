@@ -1,0 +1,101 @@
+/* Style for header */
+header {
+    background-color: #2b2b2b;
+    color: rgb(255, 255, 255);
+    display: flex;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: left;
+    position: sticky;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  header h3 {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Style for input-output section */
+  .Main-control {
+    background-color: #ffffff;
+    display: flex;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-left: -20px;
+    margin-right: -20px;
+    top: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* add a shadow border */
+  }
+  .Main-control div {
+    flex-basis: 33%; /* set each child div to take up 33% of the width */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* center text horizontally and vertically */
+    border: 1px solid black; /* add border for visualization */
+  }
+  /* Style for buttons */
+  button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+
+  /* Style for main section */
+  main {
+    padding: 20px;
+    margin: 20px;
+    background-color: #ffffff;
+    min-height: 80vh;
+  }
+  
+  /* Style for footer */
+  footer {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    text-align: center;
+  }
+  body {
+    background-color: #f2f2f2;
+  }
+
+  /* font for h1 to h3 */
+h1, h2, h3 {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 1.75em;
+  }
+  
+  /* font for h4 */
+  h4 {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 1.5em;
+  }
+  
+  /* font for h5 and h6 */
+  h5, h6 {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 1.2em;
+  }
+  /* Add this to your existing CSS or in the <head> section of your HTML */
+  .selected {
+    border: 3px solid #007bff;
+    box-sizing: border-box;
+  }
+  
+  

@@ -1,0 +1,175 @@
+main {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .loaded-image-section {
+    flex-basis: 30%;
+    background-color: #cdcdcd;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  .LoadedImageWrap {
+    flex: 1;
+  
+    background-color: #f2f2f2;
+    border: 1px solid black;
+  }
+
+  .loadedImageTopSection {
+    /*size*/
+    font-family: "Helvetica", Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px; /* Ensure the div takes up the full height of the parent */
+    width: 100%; /* Ensure the div takes up the full width of the parent */
+  }
+  .LoadedImageButtonSection{
+    height:100%;
+    display: flex;    
+    align-items: center;
+  }
+  .LoadedImageButton {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .LoadedImagePlaceholder {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0px;
+    flex-wrap: wrap;
+    min-height: 100px;
+    height: calc(100% - 40px);
+    background-color: #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  .group-and-re-ordering-image-section {
+    flex-basis: 70%;
+    background-color: #dadada;
+    display: flex;
+    flex-direction: column; /* Change back to flex-direction: column */
+    padding: 20px;
+  }
+  
+  .folder-row {
+    display: flex;
+    flex: 1; /* Distribute available space equally between rows */
+    margin-bottom: 20px;
+  }
+  .folder-row:last-child {
+    margin-bottom: 0; /* Remove bottom margin from the last row */
+  }
+  .folder {
+    flex: 1;
+    margin-right: 20px; /* Add space between folders within the same row, you can adjust this value as needed */
+    background-color: #f2f2f2;
+    border: 1px solid black;
+
+  }
+
+  .folder:last-child {
+    margin-right: 0; /* Remove right margin from the last folder within the same row */
+  }
+
+
+  .folderName {
+    position: relative;
+    justify-content: space-between;
+    display: flex;
+    align-items: space-evenly;
+    margin-bottom: 0px;
+  }
+  
+  .folder-name-input {
+    display: block;
+    /* size */
+    margin: 5px;
+    padding: 5px;
+    height: 30px; /* Set the height of the input */
+    width: 100%;
+
+    /* style */
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+
+  }
+  .folder-name-input:focus {
+    border-color: rgba(26, 115, 232, 0.7);
+  }
+  
+  .FolderImagePlaceholder {
+    display: flex;
+    flex-wrap: wrap; /* Change to wrap */
+    overflow-y: auto; /* Change to overflow-y */
+    align-items: flex-start;
+  
+    min-height: 100px;
+    background-color: #ccc;
+    height: 180px; /* Set a fixed height, adjust the value as needed */
+  }
+  
+  
+
+  .FolderNameButton {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .control-button:hover {
+    background-color: #45a049;
+  }
+  
+
+  img {
+    min-width: 80px;
+    height: 80px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+  }
+
+  /* Add this to your existing CSS or in the <head> section of your HTML */
+.selected {
+  border: 3px solid #007bff;
+  box-sizing: border-box;
+}
+
+
+.button-loading {
+  pointer-events: none;
+  cursor: default;
+}
+.button-loading::after {
+  content: " Loading...";
+  animation: loading-dots 1s infinite;
+}
+@keyframes loading-dots {
+  0%, 20% { content: " Loading." }
+  40% { content: " Loading.." }
+  60% { content: " Loading..." }
+  80%, 100% { content: " Loading...." }
+}
+
+

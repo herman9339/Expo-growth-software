@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../shared/styles/common.css">
+
+  <link rel="stylesheet" href="styles.css">
+
+
+  <title>Myavatar-photo grouping 3.0</title>
+</head>
+
+<body>
+  <header>
+    <!-- Copy the content of header.html here -->
+    <h3>Myavatar-photo grouping 3.0</h3>
+  </header>
+
+  <div class="Main-control">
+
+    <!-- Add input-output content here -->
+    <div>
+      <textarea id="rawImageNames" placeholder="Paste your raw text here"></textarea>
+      <button id="displayImage">Process Text</button>
+    </div>
+    <div>
+      <button id="downloadButton">Download Images</button>
+    </div>
+    <div>
+      <button id="myBtn">How to Use</button>
+    </div>
+
+
+  </div>
+
+  <main>
+    <!-- Add main content here -->
+    <div class="loaded-image-section">
+      <div class="LoadedImageWrap">
+        <div class="loadedImageTopSection">
+          <div class="LoadedImageTitle">
+            <h4>Loaded Image</h4>
+          </div>
+          <div class="LoadedImageButtonSection">
+            <button class="LoadedImageButton">Select All</button>
+            <button class="LoadedImageButton">B2</button>
+          </div>
+        </div>
+
+        <div id="LoadedImagePlaceholder" class="LoadedImagePlaceholder">
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="imageSection" class="group-and-re-ordering-image-section">
+      <div class="folder-row"> <!-- New row div -->
+        <!-- Folder 1 -->
+        <div class="folder">
+          <div class="folderName">
+            <input type="text" class="folder-name-input" placeholder="Folder 1">
+            <button class="FolderNameButton">B1</button>
+          </div>
+          <div id="ImagePlaceholder1" class="FolderImagePlaceholder">
+          </div>
+        </div>
+        <!-- Folder 2 -->
+        <div class="folder">
+          <div class="folderName">
+            <input type="text" class="folder-name-input" placeholder="Folder 2">
+            <button class="FolderNameButton">B1</button>
+
+          </div>
+          <div id="ImagePlaceholder2" class="FolderImagePlaceholder">
+          </div>
+        </div>
+      </div>
+      <div class="folder-row"> <!-- New row div -->
+        <!-- Folder 3 -->
+        <div class="folder">
+          <div class="folderName">
+            <input type="text" class="folder-name-input" placeholder="Folder 3">
+            <button class="FolderNameButton">B1</button>
+
+          </div>
+          <div id="ImagePlaceholder3" class="FolderImagePlaceholder">
+          </div>
+        </div>
+        <!-- Folder 4 -->
+        <div class="folder">
+          <div class="folderName">
+            <input type="text" class="folder-name-input" placeholder="Folder 4">
+            <button class="FolderNameButton">B1</button>
+
+          </div>
+          <div id="ImagePlaceholder4" class="FolderImagePlaceholder">
+          </div>
+        </div>
+
+      </div>
+      <div class="folder-row"> <!-- New row div -->
+        <!-- Folder 5 -->
+        <div class="folder">
+          <div class="folderName">
+            <input type="text" class="folder-name-input" placeholder="Folder 5">
+            <button class="FolderNameButton">B1</button>
+
+          </div>
+          <div id="ImagePlaceholder5" class="FolderImagePlaceholder">
+          </div>
+        </div>
+        <!-- Folder 6 -->
+        <div class="folder">
+          <div class="folderName">
+            <input type="text" class="folder-name-input" placeholder="Folder 6">
+            <button class="FolderNameButton">B1</button>
+
+          </div>
+          <div id="ImagePlaceholder6" class="FolderImagePlaceholder">
+          </div>
+        </div> <!-- New row div -->
+      </div>
+      <div class="folder-row"> <!-- New row div -->
+        <!-- Folder 7 -->
+        <div class="folder">
+          <div class="folderName">
+            <input type="text" class="folder-name-input" placeholder="Folder 7">
+            <button class="FolderNameButton">B1</button>
+          </div>
+          <div id="ImagePlaceholder7" class="FolderImagePlaceholder">
+          </div>
+        </div>
+        <!-- Folder 8 -->
+        <div class="folder">
+          <div class="folderName">
+            <input type="text" class="folder-name-input" placeholder="Folder 8">
+            <button class="FolderNameButton">B1</button>
+
+          </div>
+          <div id="ImagePlaceholder8" class="FolderImagePlaceholder">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <!-- Copy the content of footer.html here -->
+  </footer>
+
+  <script src="../../shared/libraries/customLibrary.js"></script>
+  <script src="main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+
+
+</body>
+
+</html>
