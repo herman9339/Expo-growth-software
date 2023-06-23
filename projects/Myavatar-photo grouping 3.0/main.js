@@ -21,26 +21,47 @@ document.getElementById('displayImage').addEventListener('click', processTextAnd
 async function processTextAndDisplayImages() {
   // Get the button element
   const button = document.getElementById('displayImage');
-  
+
   // Add the loading state to the button
   button.classList.add('button-loading');
 
   const rawImages = document.getElementById('rawImageNames').value;
   const imageUrls = extractImageLinks(rawImages);
   const downloadedImages = await downloadImagesFromLinks(imageUrls);
-  
+
   const newImages = displayDownloadedImages(downloadedImages, 'LoadedImagePlaceholder');
-  
+
   // Add event listeners to each new image
   newImages.forEach((img) => {
-    img.addEventListener('click', (e) => {
-        e.target.classList.toggle('selected');
-    });
+      img.addEventListener('click', (e) => {
+          e.target.classList.toggle('selected');
+      });
+
+      // Create a div container for the image and the dimensions
+      const imgContainer = document.createElement('div');
+      imgContainer.classList.add('img-container');
+
+      // Add the image to the container
+      imgContainer.appendChild(img);
+
+      // Create a div for the image dimensions
+      const imgDimension = document.createElement('div');
+      imgDimension.classList.add('img-dimension');
+
+      // Display the image dimensions (you might want to replace this with actual dimensions)
+      imgDimension.textContent = `${img.naturalWidth} x ${img.naturalHeight}`;
+
+      // Add the dimensions to the container
+      imgContainer.appendChild(imgDimension);
+
+      // Replace the image in the DOM with the container
+      img.parentNode.replaceChild(imgContainer, img);
   });
 
   // Remove the loading state from the button
   button.classList.remove('button-loading');
 }
+
 
 
 

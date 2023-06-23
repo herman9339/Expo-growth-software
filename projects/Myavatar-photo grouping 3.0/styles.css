@@ -232,3 +232,17 @@ main {
   cursor: pointer;
 }
 /* user guide pop up ends */
+
+
+.img-container {
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.img-dimension {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
