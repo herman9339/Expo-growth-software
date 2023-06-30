@@ -39,23 +39,35 @@ async function downloadImagesFromLinks(imageUrls) {
 // This function takes an array of downloaded image objects and a target div element,
 // creates a new DOM element for each image,
 // and appends the image elements to the target div inside the <main> element.
-function displayDownloadedImages(downloadedImages, targetDivId, callback) {
+function displayDownloadedImages(downloadedImages, targetDivId) {
     const container = document.getElementById(targetDivId);
-    const newImages = []; // Array to store the new image elements
+    const newImageDivs = []; // Array to store the new div elements
 
     downloadedImages.forEach((image) => {
+        const div = document.createElement('div'); // Create a new div to contain the image and the text
         const img = document.createElement('img');
+        const p = document.createElement('p'); // Create a new p element for the text
+
+        img.onload = function() {
+            p.textContent = `${this.naturalWidth} x ${this.naturalHeight}`; // Set the text of the p element
+        }
+
         img.src = image.objectURL;
         img.alt = image.filename;
         img.style.maxWidth = '100px';
         img.classList.add('image-item');
-        container.appendChild(img);
 
-        newImages.push(img); // Add the new img element to the array
+        div.appendChild(img); // Append the image to the div
+        div.appendChild(p); // Append the text to the div
+        container.appendChild(div); // Append the div to the container
+
+        newImageDivs.push(div); // Add the new div element to the array
     });
 
-    return newImages; // Return the array of new image elements
+    return newImageDivs; // Return the array of new div elements
 }
+
+
 
 
 // displayDownloadedImages ends
