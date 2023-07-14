@@ -7,62 +7,89 @@ main {
   
   .loaded-image-section {
     flex-basis: 30%;
-    background-color: #cdcdcd;
+
     display: flex;
     flex-direction: column;
-    padding: 20px;
-  }
-  .LoadedImageWrap {
-    flex: 1;
-  
-    background-color: #f2f2f2;
-    border: 1px solid black;
-  }
 
-  .loadedImageTopSection {
-    /*size*/
-    font-family: "Helvetica", Arial, sans-serif;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px; /* Ensure the div takes up the full height of the parent */
-    width: 100%; /* Ensure the div takes up the full width of the parent */
-  }
-  .LoadedImageButtonSection{
-    height:100%;
-    display: flex;    
-    align-items: center;
-  }
-  .LoadedImageButton {
-    padding: 5px 10px;
-    font-size: 14px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.10), 0 1px 1px rgba(0,0,0,0.20);
+
+    border-radius: 12px;
+    margin-right: 20px;
+}
+
+.LoadedImageWrap {
+    flex: 1;
+}
+
+.loadedImageTopSection {
+  /*size*/
+  display: flex;
+  justify-content: space-between; /* Ensures the maximum space between elements */
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  margin: 10px;
+}
+
+.LoadedImageTitle {
+  color: #212121;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  overflow: hidden;
+
+  /* Flex properties */
+  flex-grow: 1; /* Allow title to grow to fill space */
+  flex-shrink: 1; /* Allow title to shrink if necessary */
+  flex-basis: 0; /* This tells the title to initially take up no space, then grow */
+}
+
+.LoadedImageButtonSection {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* This will push the button section to the right */
+}
+
+.LoadedImageButton {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  /* Add some margin to separate buttons */
+  margin-left: 10px;
+}
+
+/* Make the first button (Select All) have no margin-left */
+.LoadedImageButton:first-child {
+    margin-left: 0;
+}
+
   
-  .LoadedImagePlaceholder {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 0px;
-    flex-wrap: wrap;
-    min-height: 100px;
-    height: calc(100% - 40px);
-    background-color: #ccc;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-  }
+.LoadedImagePlaceholder {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100px;
+  height: calc(100% - 60px);
+  padding: 10px;
+  flex-direction: row;
+  align-content: flex-start;
+}
+
+
+
   
   
   .group-and-re-ordering-image-section {
     flex-basis: 70%;
-    background-color: #dadada;
     display: flex;
     flex-direction: column; /* Change back to flex-direction: column */
-    padding: 20px;
   }
   
   .folder-row {
@@ -76,8 +103,10 @@ main {
   .folder {
     flex: 1;
     margin-right: 20px; /* Add space between folders within the same row, you can adjust this value as needed */
-    background-color: #f2f2f2;
-    border: 1px solid black;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.10), 0 1px 1px rgba(0,0,0,0.20);
+    border-radius: 12px;
+    padding: 10px 0 0 10px;
 
   }
 
@@ -88,28 +117,31 @@ main {
 
   .folderName {
     position: relative;
-    justify-content: space-between;
     display: flex;
-    align-items: space-evenly;
-    margin-bottom: 0px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
   }
   
   .folder-name-input {
     display: block;
-    /* size */
-    margin: 5px;
     padding: 5px;
-    height: 30px; /* Set the height of the input */
-    width: 100%;
-
-    /* style */
-    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+    height: 30px;
+    width: 100%; /* Allow input to expand to full container width */
+  
+    /* Style attributes */
+    box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     outline: none;
     font-size: 14px;
     transition: border-color 0.3s ease;
-
+  
+    /* Flex properties */
+    flex-grow: 1; /* Allow input to grow to fill space */
+    flex-shrink: 1; /* Allow input to shrink if necessary */
+    flex-basis: auto; /* Default size before flexing */
   }
   .folder-name-input:focus {
     border-color: rgba(26, 115, 232, 0.7);
@@ -120,16 +152,12 @@ main {
     flex-wrap: wrap; /* Change to wrap */
     overflow-y: auto; /* Change to overflow-y */
     align-items: flex-start;
-  
     min-height: 100px;
-    background-color: #ccc;
     height: 180px; /* Set a fixed height, adjust the value as needed */
+    
   }
   
-  
-
   .FolderNameButton {
-    padding: 5px 10px;
     font-size: 14px;
     background-color: #4caf50;
     color: white;
@@ -137,24 +165,16 @@ main {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+  
+    padding: 5px 10px;
+    margin-left: 10px; /* Keep space between the button and input field */
   }
-  .control-button:hover {
+  
+  .FolderNameButton:hover {
     background-color: #45a049;
   }
   
 
-  img {
-    min-width: 80px;
-    height: 80px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    object-fit: cover;
-  }
-
-  /* Add this to your existing CSS or in the <head> section of your HTML */
-.selected {
-  border: 3px solid #007bff;
-  box-sizing: border-box;
-}
 
 
 .button-loading {
@@ -232,17 +252,3 @@ main {
   cursor: pointer;
 }
 /* user guide pop up ends */
-
-
-.img-container {
-  padding-bottom: 20px;
-  position: relative;
-}
-
-.img-dimension {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-}
