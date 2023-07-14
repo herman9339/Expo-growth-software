@@ -1,206 +1,168 @@
-document.addEventListener("DOMContentLoaded", function() {
-  addImageListeners('img');
-});
+/* Event Handlers Initialization */
+document.addEventListener('DOMContentLoaded', initializeEventListeners);
+document.addEventListener('keydown', handleKeyPress);
+window.addEventListener('click', closePopUpWindowIfClickedOutside);
 
-//Select all image in the LoadedImageSection
-document.querySelector('.LoadedImageButtonSection .LoadedImageButton').addEventListener('click', function() {
-  const images = document.querySelectorAll('#LoadedImagePlaceholder img');
-  
-  images.forEach((img) => {
-    img.classList.add('selected');
-  });
-});
+document.getElementById('displayImage').addEventListener('click', processAndDisplayImages);
+document.getElementById("InstructionPopUpButton").addEventListener('click', displayPopUpWindow);
+document.getElementById('downloadButton').addEventListener('click', downloadImagesAsZip);
 
-
-
-
-
-// run processTextAndDisplayImages when Process text button is clicked
-document.getElementById('displayImage').addEventListener('click', processTextAndDisplayImages);
-
-async function processTextAndDisplayImages() {
-  // Get the button element
-  const button = document.getElementById('displayImage');
-
-  // Add the loading state to the button
-  button.classList.add('button-loading');
-
-  const rawImages = document.getElementById('rawImageNames').value;
-  const imageUrls = extractImageLinks(rawImages);
-  const downloadedImages = await downloadImagesFromLinks(imageUrls);
-
-  const newImages = displayDownloadedImages(downloadedImages, 'LoadedImagePlaceholder');
-
-  // Add event listeners to each new image
-  newImages.forEach((img) => {
-      img.addEventListener('click', (e) => {
-          e.target.classList.toggle('selected');
-      });
-
-      // Create a div container for the image and the dimensions
-      const imgContainer = document.createElement('div');
-      imgContainer.classList.add('img-container');
-
-      // Add the image to the container
-      imgContainer.appendChild(img);
-
-      // Create a div for the image dimensions
-      const imgDimension = document.createElement('div');
-      imgDimension.classList.add('img-dimension');
-
-      // Display the image dimensions (you might want to replace this with actual dimensions)
-      imgDimension.textContent = `${img.naturalWidth} x ${img.naturalHeight}`;
-
-      // Add the dimensions to the container
-      imgContainer.appendChild(imgDimension);
-
-      // Replace the image in the DOM with the container
-      img.parentNode.replaceChild(imgContainer, img);
-  });
-
-  // Remove the loading state from the button
-  button.classList.remove('button-loading');
+function initializeEventListeners() {
+    addImageListeners();
+    addToggleControlListeners();
+    addCloseButtonListeners();
 }
 
-
-
-
-// Add event listener to every image
-function addImageListeners(selector) {
-  const images = document.querySelectorAll(selector);
-
-  // Add click event listener for image selection/deselection
-  images.forEach((img) => {
-    img.addEventListener('click', (e) => {
-      e.target.classList.toggle('selected');
-    });
-  });
-
-  // Add keydown event listener for keys 1-9, 'a', 'd', and arrow keys
-  document.addEventListener('keydown', (event) => {
-    const selectedImage = document.querySelector('.selected');
-
-    if (selectedImage) {
-      handleKeyPress(event.key.toLowerCase());
-    }
-  });
+/* Toggle Functions */
+function addToggleControlListeners() {
+    document.querySelectorAll('.toggleControlDiv')
+        .forEach(div => div.addEventListener('click', toggleControlExpansion));
 }
 
+function toggleControlExpansion(e) {
+    e.currentTarget.classList.toggle('expanded');
+}
 
-function handleKeyPress(key) {
-  console.log(`Key pressed: ${key}`);
-  const selectedImages = document.querySelectorAll('.selected');
-
-  if (key >= '1' && key <= '9' && key.length === 1) {
-
-    const targetFolder = document.getElementById(`ImagePlaceholder${key}`);
-
-    if (targetFolder) {
-      selectedImages.forEach((image) => {
-        targetFolder.appendChild(image);
-        image.classList.remove('selected');
-      });
+/* Key Press Function */
+function handleKeyPress(e) {
+    const selected = document.querySelectorAll('.selected'),
+        key = e.key;
+    
+    if (key >= '1' && key <= '9') {
+        moveSelectedImagesToFolder(key, selected);
     } else {
-      console.log(`ImagePlaceholder${key} not found`);
+        handleNavigationAndActionKeys(key, selected);
     }
-  } else if (key === 'a' || key === 'ArrowLeft') {
-    selectedImages.forEach((image) => {
-      const previousSibling = image.previousElementSibling;
-      const prevPrevSibling = previousSibling ? previousSibling.previousElementSibling : null;
-      if (previousSibling && (!previousSibling.classList.contains('selected') || !prevPrevSibling)) {
-        previousSibling.parentNode.insertBefore(image, previousSibling);
-      }
-    });
+}
 
-  } else if (key === 'd' || key === 'ArrowRight') {
-    const selectedImagesArray = Array.from(selectedImages);
-    const reversedSelectedImages = selectedImagesArray.reverse();
+/* Image Selection Functions */
+function addImageListeners() {
+    document.querySelectorAll('.imageControlContainer')
+        .forEach(container => container.addEventListener('click', toggleImageSelection));
+}
 
-    reversedSelectedImages.forEach((image) => {
-      const nextSibling = image.nextElementSibling;
-      const nextNextSibling = nextSibling ? nextSibling.nextElementSibling : null;
-      if (nextSibling && (!nextSibling.classList.contains('selected') || !nextNextSibling)) {
-        nextSibling.parentNode.insertBefore(image, nextSibling.nextElementSibling);
-      }
-    });
+function toggleImageSelection(e) {
+    e.currentTarget.classList.toggle('selected');
+}
 
-  } else if (key === 'c') {
-    selectedImages.forEach((image) => {
-      image.classList.remove('selected');
-    });
-
-  } else if (key === 'backspace' || key === 'q') {
-    selectedImages.forEach((image) => {
-      image.remove();
-    });
-  }
+/* Select All Images in the LoadedImagePlaceholder Functions */
+function selectAllImages() {
+  document.querySelectorAll('#LoadedImagePlaceholder .imageControlContainer')
+      .forEach(container => container.classList.add('selected'));
 }
 
 
-
-
-// Function to fetch image as ArrayBuffer
-async function fetchImageAsArrayBuffer(src) {
-  return new Promise((resolve) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', src, true);
-    xhr.responseType = 'arraybuffer';
-    xhr.onload = function (e) {
-      if (this.status === 200) {
-        resolve(this.response);
-      }
-    };
-    xhr.send();
-  });
+/* Pop-up Functions */
+function addCloseButtonListeners() {
+    document.querySelectorAll('.LoadedImageButtonSection .LoadedImageButton, .close')
+        .forEach(btn => btn.addEventListener('click', btn.className.includes('close') ? closePopUpWindow : selectAllImages));
 }
 
-document.getElementById('downloadButton').addEventListener('click', async function () {
-  const zip = new JSZip();
-  const imageSection = document.getElementById('imageSection');
-  const folderElements = imageSection.querySelectorAll('.FolderImagePlaceholder');
+function displayPopUpWindow() {
+    document.getElementById("popUpWindow").style.display = "block";
+}
 
-  for (const folderElement of folderElements) {
-    const images = folderElement.querySelectorAll('img');
+function closePopUpWindow() {
+    document.getElementById("popUpWindow").style.display = "none";
+}
 
-    if (images.length > 0) {
-      // Get the folder name from the input element
-      const folderNameInput = folderElement.parentElement.querySelector('.folder-name-input');
-      const folderName = folderNameInput.value || `folder ${Math.random().toString(36).substring(7)}`;
+function closePopUpWindowIfClickedOutside(e) {
+    if (e.target == document.getElementById("popUpWindow")) closePopUpWindow();
+}
 
-      const folder = zip.folder(folderName);
+/* Image Processing Functions */
+function processAndDisplayImages() {
+  const baseUrl = 'https://cdn.customily.com/product-images/',
+      imageNames = document.getElementById('rawImageNames').value.split('\t').map(name => name.replace(/^Image/, ''));
 
-      for (let i = 0; i < images.length; i++) {
-        const img = images[i];
-        const imgData = await fetchImageAsArrayBuffer(img.src);
-        folder.file(`${folderName}-${i + 1}.png`, imgData, { binary: true });
-      }
-    }
-  }
+  imageNames.forEach((name, i) => fetch(`${baseUrl}${name}`)
+      .then(response => response.blob())
+      .then(blob => {
+          const img = createImageElement(blob, i);
+          const clone = prepareImageTemplate(img);
+          addImageDimensionsToClone(clone, img.src, 'LoadedImagePlaceholder');
+      })
+      .catch(e => console.error('Error downloading image:', e)));
+}
 
-  const zipBlob = await zip.generateAsync({ type: 'blob' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(zipBlob);
-  link.download = 'images.zip';
-  link.click();
-});
+function createImageElement(blob, index) {
+  const img = document.createElement('img');
+  const imageUrl = URL.createObjectURL(blob);
+  img.src = imageUrl;
+  img.alt = `image-${index}.png`;
+  img.style.maxWidth = '80px';
+  img.classList.add('image-item');
+  return img;
+}
 
+function prepareImageTemplate(img) {
+  const template = document.getElementById('imageControlTemplate');
+  const clone = document.importNode(template.content, true);
+
+  const infoTextDiv1 = clone.querySelector('.infoTextDiv1');
+  // Replacing the text in infoTextDiv1 with the anchor element
+  infoTextDiv1.innerHTML = '';
+  infoTextDiv1.appendChild(createAnchorElement(img.src));
+
+  clone.querySelector('.imageContainerDiv').appendChild(img);
+
+  // Find imageControlContainer and toggleControlDiv inside the clone and add event listeners to them
+  const imageControlContainer = clone.querySelector('.imageControlContainer');
+  const toggleControlDiv = clone.querySelector('.toggleControlDiv');
   
-var modal = document.getElementById("popUpWindow");
-var btn = document.getElementById("InstructionPopUpButton");
-var span = document.getElementsByClassName("close")[0];
-
-btn.onclick = function() {
-  modal.style.display = "block";
+  imageControlContainer.addEventListener('click', toggleImageSelection);
+  toggleControlDiv.addEventListener('click', toggleControlExpansion);
+  
+  return clone;
 }
 
-span.onclick = function() {
-  modal.style.display = "none";
+
+function createAnchorElement(imageUrl) {
+  // Creating a new anchor element
+  const anchor = document.createElement('a');
+  anchor.href = imageUrl;
+  anchor.target = "_blank"; // Opens the link in a new tab
+  anchor.textContent = "Preview";
+  return anchor;
 }
 
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+// Function to add image dimensions to a clone and append it to the specified parent element
+function addImageDimensionsToClone(clone, imageUrl, parentElementId) {
+  if (!clone || !imageUrl || !parentElementId) {
+      console.error('Both clone, imageUrl, and parentElementId must be provided');
+      return;
   }
+
+  const tempImg = new Image();
+  tempImg.src = imageUrl;
+
+  tempImg.onload = function() {
+      const infoTextDiv2 = clone.querySelector('.infoTextDiv2');
+
+      if (!infoTextDiv2) {
+          console.error('Element with class "infoTextDiv2" not found in clone');
+          return;
+      }
+
+      infoTextDiv2.textContent = `${this.width}x${this.height}`;
+
+      // Get the toggleControlDiv and make it invisible
+      const toggleControlDiv = clone.querySelector('.toggleControlDiv');
+      toggleControlDiv.style.display = 'none';
+
+      // Append the clone after the image has loaded and we have the dimensions
+      const parentElement = document.getElementById(parentElementId);
+      if (!parentElement) {
+          console.error('Parent element not found: ', parentElementId);
+          return;
+      }
+
+      parentElement.appendChild(clone);
+  };
+
+  tempImg.onerror = function() {
+      console.error('Failed to load image at url: ', imageUrl);
+  };
 }
 
 
