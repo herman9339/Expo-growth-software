@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<template id="imageControlTemplate">
+  <div class="imageControlContainer">
+    <div class="toggleControlDiv">i</div>
+    <div class="flipContainer">
+        <div class="front">
+            <div class="imageContainerDiv"></div>
+        </div>
+        <div class="back">
+            <div class="expandableContentDiv">
+                <div class="infoTextDiv1">Info 1</div>
+                <div class="infoTextDiv2">Info 2</div>
+            </div>
+        </div>
+    </div>
+  </div>
+</template>
+
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../Shared/styles/common.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="imageContainerStyle.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 
   <title>Myavatar Download and grouping Web App</title>
@@ -22,7 +43,7 @@
     <!-- Add input-output content here -->
     <div>
       <textarea id="rawImageNames" placeholder="Paste your raw text here"></textarea>
-      <button id="displayImage">Process Text</button>
+      <button id="displayImage">Display Image</button>
     </div>
     <div>
       <button id="downloadButton">Download Images</button>
@@ -145,7 +166,7 @@
       </div>
     </div>
     <!-- user guide pop up starts-->
-    <div id="popUpWindow" class="modal" display: "none">
+    <div id="popUpWindow" class="modal" display="none">
       <div class="modal-content">
         <div class="ModelTopSection">
           <span class="close">&times;</span>
@@ -153,27 +174,27 @@
         </div>
         <div class="ModelBotSection">
 
-            <h5>Selecting Photos:</h5>
-            1. Click on individual photos to select.<br/>
-            2. To select all photos, click the "Select All" button.
-            
-            <h5>Organizing Photos into Folders:</h5>
+          <h5>Selecting Photos:</h5>
+          1. Click on individual photos to select.<br />
+          2. To select all photos, click the "Select All" button.
 
-            1. Press '1' to move selected photos to Folder 1.<br/>
-            2. Press '2' to move selected photos to Folder 2.<br/>
-            3. Press 'X' to move selected photos to Folder X.
+          <h5>Organizing Photos into Folders:</h5>
 
-            
-            <h5>Manipulating Photos:</h5>
+          1. Press '1' to move selected photos to Folder 1.<br />
+          2. Press '2' to move selected photos to Folder 2.<br />
+          3. Press 'X' to move selected photos to Folder X.
 
-            1. Press 'A' or the left arrow key to shift selected photos one step left.<br/>
-            2. Press 'D' or the right arrow key to shift selected photos one step right.
 
-            
-            <h5>Deleting and Deselecting Photos:</h5>
+          <h5>Manipulating Photos:</h5>
 
-            1. Press 'Q' or 'Backspace' to delete selected photos.<br/>
-            2. Press 'C' to deselect all photos.
+          1. Press 'A' or the left arrow key to shift selected photos one step left.<br />
+          2. Press 'D' or the right arrow key to shift selected photos one step right.
+
+
+          <h5>Deleting and Deselecting Photos:</h5>
+
+          1. Press 'Q' or 'Backspace' to delete selected photos.<br />
+          2. Press 'C' to deselect all photos.
 
         </div>
       </div>
@@ -187,10 +208,25 @@
   </footer>
 
   <script src="../../Shared/libraries/customLibrary.js"></script>
+  <script src="downloadSelectImage.js"></script>
   <script src="main.js"></script>
+  <script src="imageMovementNavigation.js"></script>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+  <script>
+    function toggleImageSelection(event) {
+      // 'selected' class will be added if it doesn't exist or removed if it does.
+      event.currentTarget.classList.toggle('selected');
+    }
 
-
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.addEventListener('click', function(event) {
+        if (event.target.classList.contains('imageControlContainer')) {
+          toggleImageSelection(event);
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
